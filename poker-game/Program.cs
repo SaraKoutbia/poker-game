@@ -1,4 +1,9 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Serilog;
+using System;
+using System.IO;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace poker_game
 {
@@ -6,7 +11,43 @@ namespace poker_game
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var builder = new ConfigurationBuilder();
+
+            //Adding the appsettings.json files to the configurationBuilder 
+            BuildConfiguration(builder);
+
+            //Executing the builder, reading the configuration and adding Logging.
+            Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(builder.Build())
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
+            Log.Logger.Information("***Starting (environment: {environment})***",
+                Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "default");
+
+            var host = Host.CreateDefaultBuilder()
+                .ConfigureServices(
+                (context, services) =>
+                {
+
+                }
+                )
+                .UseSerilog()
+                .Build();
+        }
+
+
+        /// <summary>
+        /// Setting up talking to the appsettings files: 
+        /// Adding the ability to talk to the appsettings.production.json and appsettings.development.json.
+        /// Environment variables can override the appsettings files.
+        /// </summary>
+        /// <param name="builder"></param>
+        static void BuildConfiguration(IConfigurationBuilder builder)
+        {
+            builder.SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{ Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "production"}.json", optional: true)
+                .AddEnvironmentVariables();
         }
     }
 }
