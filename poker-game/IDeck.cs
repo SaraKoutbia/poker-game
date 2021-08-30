@@ -6,7 +6,7 @@
         void Suffle();
         bool IsEmpty();
         Card Pop();
-        public int Count { get; }
+        int Count { get; }
         void Print();
         void ServePlayer(IPlayer player);
     }

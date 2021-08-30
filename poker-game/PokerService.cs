@@ -25,6 +25,8 @@ namespace poker_game
         {
             _log.LogInformation(_deck.IsEmpty() ? "Deck is Empty." : "Deck is not empty.");
             _deck.Initialize();
+            _deck.Suffle();
+            _log.LogInformation("The deck has {count} cards. ", _deck.Count);
 
             _deck.Pop();
             _deck.Pop();
@@ -32,9 +34,7 @@ namespace poker_game
             var numberOfCardsPerRound = _config.GetSection("PokerRules:#CardsToServeEachPlayer").Get<int>() * 2;//=10
             while ((!_deck.IsEmpty()) && (_deck.Count >= numberOfCardsPerRound))
             {
-                //deck is a stack - serve player 
-                _log.LogInformation("The deck has {count} cards. ", _deck.Count);
-
+                _log.LogInformation("New round ...");
                 _deck.ServePlayer(_player);
                 _deck.ServePlayer(_computer);
 
@@ -43,8 +43,8 @@ namespace poker_game
                 Score computerScore = _computer.EvaluateCards();
 
                 _log.LogInformation("Player score - Category:{p} Highest rank:{r}", playerScore._currentCategory, playerScore._currentHighestRank);
-                _log.LogInformation("Computer score - Category:{p} Highest rank:{r}", computerScore._currentHighestRank, computerScore._currentHighestRank);                
-                
+                _log.LogInformation("Computer score - Category:{p} Highest rank:{r}", computerScore._currentHighestRank, computerScore._currentHighestRank);
+
                 //report the winner  
             }
         }
