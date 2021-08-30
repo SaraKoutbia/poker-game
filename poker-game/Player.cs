@@ -9,9 +9,7 @@ namespace poker_game
         private readonly ILogger<Player> _log;
         private readonly IConfiguration _config;
         private List<Card> _currentCards;
-        internal List<Card> CurrentCards { set { _currentCards = value; } get { return _currentCards; } }
-
-        List<Card> IPlayer.CurrentCards { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+        public  List<Card> CurrentCards { set { _currentCards = value; } get { return _currentCards; } }
 
         public Player(ILogger<Player> log, IConfiguration config)
         {

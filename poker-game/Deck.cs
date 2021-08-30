@@ -19,25 +19,25 @@ namespace poker_game
         {
             _log = log;
             _config = config;
-            _cardsPerPlayerCount = _config.GetSection("PokerRules:#CardsToServeEachPlayer").Get<int>();
-            _numberCount = _config.GetSection("PokerRules:#CardsPerSuit").Get<int>();
+            _cardsPerPlayerCount = _config.GetSection("PokerRules:#CardsToServeEachPlayer").Get<int>();//=5
+            _numberCount = _config.GetSection("PokerRules:#CardsPerSuit").Get<int>();//=13
         }
 
-        void IDeck.Initialize()
+        public void Initialize()
         {
             var suitsCount = Enum.GetNames(typeof(Suit)).Length;
-           
+
             for (var i = 1; i <= suitsCount; i++)
             {
                 for (var j = 1; j <= _numberCount; j++)
                 {
-                    _cards.Add(new Card { Suit = (Suit)i, Rank = j, Position = (i - 1) * 13 + j - 1 });
+                    _cards.Add(new Card { Suit = (Suit)i, Rank = j });
                 }
             }
             _log.LogInformation("The Deck has been initialized. It contains {cardsCount} cards.", _cards.Count);
         }
 
-        void IDeck.Suffle()
+        public void Suffle()
         {
             Random r = new Random();
 
@@ -51,12 +51,12 @@ namespace poker_game
             _log.LogInformation("The Deck has been shuffled.");
         }
 
-        bool IDeck.IsEmpty()
+        public bool IsEmpty()
         {
             return _cards.Count == 0;
         }
 
-        Card IDeck.Pop()
+        public Card Pop()
         {
             var lastCard = _cards[Count - 1];
             _cards.RemoveAt(Count - 1);
@@ -67,7 +67,7 @@ namespace poker_game
         {
         }
 
-        void IDeck.ServePlayer(IPlayer player)
+        public void ServePlayer(IPlayer player)
         {
             player.CurrentCards = _cards.GetRange(Count - _cardsPerPlayerCount, _cardsPerPlayerCount);
             player.CurrentCards.ForEach(x => _log.LogInformation("Rank {Rank}, Suit {Suit}", x.Rank, x.Suit));

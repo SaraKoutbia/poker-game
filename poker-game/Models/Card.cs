@@ -11,6 +11,6 @@ namespace poker_game
         internal int Rank { get; set; }
 
         //TODO: delete
-        internal int Position { get; set; }
+       // internal int Position { get; set; }
     }
 }
