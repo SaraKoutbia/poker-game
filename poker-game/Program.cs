@@ -28,11 +28,18 @@ namespace poker_game
                 .ConfigureServices(
                 (context, services) =>
                 {
-
+                    services.AddTransient<IPokerService, PokerService>();
+                    services.AddTransient<IPlayer, Player>();
+                    services.AddTransient<IDeck, Deck>();
+                    services.AddTransient<IPlayer, Player>();
                 }
                 )
                 .UseSerilog()
                 .Build();
+
+            var service = ActivatorUtilities.CreateInstance<PokerService>(host.Services);
+            service.Run();
+
         }
 
 

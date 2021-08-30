@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace poker_game
 {
-    class PokerService
+    internal class PokerService : IPokerService
     {
         private readonly ILogger<PokerService> _log;
         private readonly IConfiguration _config;
@@ -21,10 +21,8 @@ namespace poker_game
             _player = player;
             _computer = computer;
         }
-        void Run()
+        internal void Run()
         {
-
-
         }
 
     }
