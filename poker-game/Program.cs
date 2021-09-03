@@ -31,7 +31,6 @@ namespace poker_game
                     services.AddTransient<IPokerService, PokerService>();
                     services.AddTransient<IPlayer, Player>();
                     services.AddTransient<IDeck, Deck>();
-                    services.AddTransient<IEvaluator, Evaluator>();
                 }
                 )
                 .UseSerilog()

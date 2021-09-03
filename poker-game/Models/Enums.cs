@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace poker_game
+﻿namespace poker_game
 {
     class Enums
     {

@@ -1,33 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using static poker_game.Enums;
 
 namespace poker_game
 {
-    class Evaluator : IEvaluator
+    static class Evaluator
     {
-        internal List<Card> Cards = new List<Card>();
-        internal Dictionary<int, int> rankDic;
-        internal Dictionary<Suit, int> suitDic;
-        internal CurrentRoundResults score;
+        static internal List<Card> Cards = new List<Card>();
 
-        public Evaluator()
-        {
-            score = new CurrentRoundResults { _category = Category.None, _highestRank = 0 };
-            rankDic = new Dictionary<int, int>();
-            suitDic = new Dictionary<Suit, int>();
-        }
-
-        private void Initialize(List<Card> cards)
-        {
-            rankDic = new Dictionary<int, int>();
-            suitDic = new Dictionary<Suit, int>();
-            Cards = cards;
-            EvaluateCards();
-        }
-
-        private void EvaluateCards()
+        private static void EvaluateCards(List<Card> Cards, Dictionary<int, int> rankDic, Dictionary<Suit, int> suitDic)
         {
             foreach (var Card in Cards)
             {
@@ -46,9 +27,13 @@ namespace poker_game
             }
         }
 
-        public CurrentRoundResults GetCurrentScore(List<Card> cards)
+        public static CurrentRoundResults GetCurrentScore(List<Card> cards)
         {
-            Initialize(cards);
+            var score = new CurrentRoundResults { _category = Category.None, _highestRank = 0 };
+            var rankDic = new Dictionary<int, int>();
+            var suitDic = new Dictionary<Suit, int>();
+
+            EvaluateCards(cards, rankDic, suitDic);
             var suitMaxVal = suitDic.Values.Max();
             score._highestRank = rankDic.Keys.Max();
             score._2ndHighestRank = rankDic.Keys.Where(x => x != score._highestRank).Max();

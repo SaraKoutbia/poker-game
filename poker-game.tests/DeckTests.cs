@@ -1,8 +1,6 @@
-using System;
 using Xunit;
 using Moq;
 using Microsoft.Extensions.Logging;
-using poker_game;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Text;
@@ -33,7 +31,5 @@ namespace poker_game.tests
             //verify
             Assert.Equal(52, deck.Count);
         }
-
-
     }
 }

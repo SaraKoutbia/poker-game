@@ -6,7 +6,9 @@ namespace poker_game
     {
         List<Card> CurrentCards { get; set; }
         CurrentRoundResults EvaluateCards();
-        void PrintCards();
+        void PrintCurrentScore();
+        void PrintTotal();
         string Name { get; set; }
+        Score Score { get; set; }
     }
 }
