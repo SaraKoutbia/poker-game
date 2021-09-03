@@ -10,7 +10,6 @@ using System.Text;
 namespace poker_game.tests
 {
     public class DeckTests
-
     {
         [Fact]
         public void Initialize_PopulatesTheDeckWith52Cards()
@@ -26,7 +25,6 @@ namespace poker_game.tests
             var builder = new ConfigurationBuilder();
             builder.AddJsonStream(new MemoryStream(Encoding.UTF8.GetBytes(appSettings)));
             var configuration = builder.Build();
-
             var deck = new Mock<Deck>(new Mock<ILogger<PokerService>>().Object, configuration).Object;
 
             //exercise  

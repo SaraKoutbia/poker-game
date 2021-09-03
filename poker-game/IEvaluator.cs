@@ -1,8 +1,9 @@
-﻿namespace poker_game
+﻿using System.Collections.Generic;
+
+namespace poker_game
 {
     interface IEvaluator
     {
-        void EvaluateCards();
-        Score GetCurrentScore();
+        CurrentRoundResults GetCurrentScore(List<Card> cards);
     }
 }

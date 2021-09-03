@@ -5,10 +5,13 @@ using static poker_game.Enums;
 
 namespace poker_game
 {
-    internal class Score
+    internal class CurrentRoundResults
     {
-
-        internal CurrentRoundResults _currentRoundResults;
+        internal Category _category;
+        internal int _highestRank; 
+        internal int _2ndHighestRank;
         internal int _total;
+
+
     }
 }

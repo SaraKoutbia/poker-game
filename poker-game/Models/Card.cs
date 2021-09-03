@@ -9,8 +9,5 @@ namespace poker_game
     {
         internal Suit Suit { get; set; }
         internal int Rank { get; set; }
-
-        //TODO: delete
-       // internal int Position { get; set; }
     }
 }

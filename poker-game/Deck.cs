@@ -63,14 +63,14 @@ namespace poker_game
             return lastCard;
         }
         //TODO: needed?
-        void IDeck.Print()
+        public void Print()
         {
         }
 
         public void ServePlayer(IPlayer player)
         {
             player.CurrentCards = _cards.GetRange(Count - _cardsPerPlayerCount, _cardsPerPlayerCount);
-            player.CurrentCards.ForEach(x => _log.LogInformation("Rank {Rank}, Suit {Suit}", x.Rank, x.Suit));
+            player.CurrentCards.ForEach(x => _log.LogInformation("{name} - Rank {Rank}, Suit {Suit}", player.Name, x.Rank, x.Suit));
             _cards.RemoveRange(Count - _cardsPerPlayerCount, _cardsPerPlayerCount);
         }
     }

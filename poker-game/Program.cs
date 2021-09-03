@@ -31,15 +31,26 @@ namespace poker_game
                     services.AddTransient<IPokerService, PokerService>();
                     services.AddTransient<IPlayer, Player>();
                     services.AddTransient<IDeck, Deck>();
-                    services.AddTransient<IPlayer, Player>();
+                    services.AddTransient<IEvaluator, Evaluator>();
                 }
                 )
                 .UseSerilog()
                 .Build();
+            Log.Logger.Information("Press 'Y' to start a new game.");
+            Log.Logger.Information("Press ESC to stop");
+            do
+            {
+                while (Console.ReadKey(true).Key == ConsoleKey.Y)
+                {
+                    Log.Logger.Information("\n+++++++++++++++++++++++++++++++++++++" +
+                                           "\n++++++++++++ New Game +++++++++++++++" +
+                                           "\n+++++++++++++++++++++++++++++++++++++");
 
-            var service = ActivatorUtilities.CreateInstance<PokerService>(host.Services);
-            service.Run();
-
+                    var service = ActivatorUtilities.CreateInstance<PokerService>(host.Services);
+                    service.Run();
+                    Log.Logger.Information("Press 'Y' to start a new game.");
+                }
+            } while ((Console.ReadKey(true).Key != ConsoleKey.Escape));
         }
 
 
