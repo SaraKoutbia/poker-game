@@ -16,11 +16,6 @@ or
 dotnet run  /p:ASPNETCORE_ENVIRONMENT=Production
 ```
 
-### 2nd option - Pulling the docker image and running a container
-Follow the instructions under [this page](url??? )
-```
-$ docker pull ???
-```
 
 ## Running the tests
 From poker-game
@@ -34,10 +29,13 @@ test run
 
 The poker-game.tests includes:
 #### Deck tests
-???
+
 #### Evaluator tests
-??
+Tests the nine possible outcomes of a poker-round.
+
+
+## Limitations 
+The score is computed based on the suit, the highest rank and the second highest rank. When all three are equal, the results are assumed to be equal and the score is not incremented.
 
 ## Built With
-
 .NET Core 3.1 
