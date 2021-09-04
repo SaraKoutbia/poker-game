@@ -24,10 +24,9 @@ namespace poker_game
 
         public string Name { set { _name = value; } get { return _name; } }
 
-        public CurrentRoundResults EvaluateCards()
+        public void EvaluateCards()
         {
             _score._currentRoundResults = Evaluator.GetCurrentScore(CurrentCards);
-            return _score._currentRoundResults;
         }
 
         void IPlayer.PrintCurrentScore()

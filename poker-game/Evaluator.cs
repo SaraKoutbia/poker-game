@@ -40,7 +40,7 @@ namespace poker_game
             switch (suitMaxVal)
             {
                 case 5://flush + StraightFlush
-                    if ((score._highestRank - rankDic.Values.Min()) == 4)//Five cards in sequence
+                    if ((score._highestRank - rankDic.Keys.Min()) == 4)//Five cards in sequence
                         score._category = Category.StraightFlush;
                     else
                         score._category = Category.Flush;//cannot be FourOfAKind nor FullHouse
@@ -48,14 +48,14 @@ namespace poker_game
 
                 default:
                     score._highestRank = rankDic.Where(x => x.Value == rankDic.Values.Max()).Max(x => x.Key);
-                    score._2ndHighestRank = rankDic.Keys.Where(x => x != score._highestRank).Max();
+                    score._2ndHighestRank = rankDic
+                                            .Where(y => y.Value == (rankDic.Where(x => x.Key != score._highestRank).Max(x => x.Value)))
+                                            .Where(x => x.Key != score._highestRank)
+                                            .Max(x => x.Key);
                     switch (rankDic.Values.Max())
                     {
                         case 4://FourOfAKind
                             score._category = Category.FourOfAKind;
-                            //TODO
-                            score._highestRank = rankDic.First(x => x.Value == rankDic.Values.Max()).Value;
-                            score._2ndHighestRank = rankDic.Keys.Where(x => x != score._highestRank).Max();
                             break;
                         case 3: //FullHouse + ThreeOfAKind
                             if (rankDic.Values.Count(x => x > 1) == 2)
@@ -64,13 +64,18 @@ namespace poker_game
                                 score._category = Category.ThreeOfAKind;
                             break;
                         case 2://TwoPair
+                            score._2ndHighestRank = rankDic
+                                .Where(y => y.Value == (rankDic.Where(x => x.Key != score._highestRank).Max(x => x.Value)))
+                                .Where(x => x.Key != score._highestRank)
+                                .Max(x => x.Key);
+
                             if (rankDic.Values.Count(x => x > 1) == 2)
                                 score._category = Category.TwoPair;
                             else
                                 score._category = Category.OnePair;
                             break;
                         default:
-                            if ((score._highestRank - rankDic.Values.Min()) == 4)//Five cards in sequence
+                            if ((score._highestRank - rankDic.Keys.Min()) == 4)
                                 score._category = Category.Straight;
                             else
                                 score._category = Category.HighCard;

@@ -2,7 +2,7 @@
 
 namespace poker_game
 {
-    internal class CurrentRoundResults
+    public class CurrentRoundResults
     {
         internal Category _category;
         internal int _highestRank; 

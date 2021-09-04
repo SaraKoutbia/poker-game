@@ -10,7 +10,7 @@ namespace poker_game
     {
         private readonly ILogger<PokerService> _log;
         private readonly IConfiguration _config;
-        private List<Card> _cards = new List<Card>();
+        internal List<Card> _cards = new List<Card>();
         public int Count { get { return _cards.Count; } }
         private readonly int _cardsPerPlayerCount;
         private readonly int _numberCount;

@@ -2,7 +2,7 @@
 
 namespace poker_game
 {
-    internal class Card
+    public class Card
     {
         internal Suit Suit { get; set; }
         internal int Rank { get; set; }
