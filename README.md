@@ -21,7 +21,7 @@ dotnet run  /p:ASPNETCORE_ENVIRONMENT=Production
 From poker-game
 ```
 cd .\poker-game.tests\
-test run
+dotnet test
 ```
 
 
